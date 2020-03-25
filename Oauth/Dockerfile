@@ -5,16 +5,16 @@ EXPOSE 7001
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["OAuth.csproj", "OAuth/"]
-RUN dotnet restore "OAuth.csproj"
+COPY ["Oauth.csproj", "Oauth/"]
+RUN dotnet restore "Oauth.csproj"
 COPY . .
-WORKDIR "/src/OAuth"
-RUN dotnet build "OAuth.csproj" -c Release -o /app/build
+WORKDIR "/src/Oauth"
+RUN dotnet build "Oauth.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "OAuth.csproj" -c Release -o /app/publish
+RUN dotnet publish "Oauth.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "OAuth.dll"]
+ENTRYPOINT ["dotnet", "Oauth.dll"]
