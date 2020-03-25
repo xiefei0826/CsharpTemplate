@@ -6,7 +6,7 @@ EXPOSE 7001
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["Oauth.csproj", "Oauth/"]
-RUN dotnet restore "Oauth.csproj"
+RUN dotnet restore "Oauth/Oauth.csproj"
 COPY . ./Oauth/
 WORKDIR "/src/Oauth"
 RUN dotnet build "Oauth.csproj" -c Release -o /app/build
