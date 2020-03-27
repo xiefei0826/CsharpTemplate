@@ -1,0 +1,2 @@
+1、部署应用
+docker stack deploy --resolve-image always --prune -c docker-compose.yml oauth

@@ -1,0 +1,45 @@
+version: "3.7"
+services:
+  mysql:
+    image: mysql:8.0.19
+    networks:
+      oauth:
+        aliases:
+          - db-mysql
+    ports:
+      - 3306:3306
+    hostname: db-mysql
+    volumes:
+      - mysqldata:/var/lib/mysql/
+    environment:
+      MYSQL_ROOT_PASSWORD: template
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+#  identityserver:
+#    image: identityserver:latest
+#    ports:
+#      - 7001:7001
+#    networks:
+#      oauth:
+#        aliases:
+#          - identityserver
+#    hostname: identityserver
+#    deploy:
+#      restart_policy:
+#        condition: on-failure
+#    depends_on:
+#      - mysql
+    
+
+networks:
+  oauth:
+    name: oauth
+    ipam:
+      driver: default
+
+volumes:
+  mysqldata:
+    name: mysqldata
+    
